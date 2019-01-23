@@ -1,3 +1,6 @@
+// Obtained publically and freely (open-source) at https://www.geeksforgeeks.org/queue-set-2-linked-list-implementation/
+// Professor Kwatny allowed the use of public domain works in our projects.
+
 // A C program to demonstrate linked list based implementation of queue 
 #include <stdlib.h> 
 #include <stdio.h>
