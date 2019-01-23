@@ -1,6 +1,4 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
 #include "config.h"
 #include "priority_queue.h"
 
@@ -10,13 +8,11 @@ int main() {
   int current_time = conf.INIT_TIME;
 
   // Create and initialize all of the queues
-  struct priority_queue p_queue;
-  initialize_priority_queue(&p_queue, 100000);
+  struct priority_queue *p_queue = NULL;
+  initialize_priority_queue(p_queue, 100000);
   //push_to_priority_queue(&p_queue, current_time, "Simulation starting");
-  
-  while (current_time < conf.FIN_TIME) {
-    
-  }
+
+  printf("Success!\n");
   
   return 1;
 }
