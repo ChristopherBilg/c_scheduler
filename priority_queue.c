@@ -47,13 +47,20 @@ _Bool push_to_priority_queue(struct priority_queue *queue, int priority, char *d
 }
 
 // Higher number equates to higher priority
+// (Needs to be tested) Lower number should now equate to higher priority
 char* pop_from_priority_queue(struct priority_queue *queue) {
   if (priority_queue_is_empty(queue))
-    return "c";
+    return NULL;
 
-  char* data = queue->all_nodes[queue->length-1].data;
+  //char* data = queue->all_nodes[queue->length-1].data;
+  //queue->length--;
+  //return data;
+
+  char* data = queue->all_nodes[0].data;
+  for (int i = 0; i < queue->length; i++)
+    swap_nodes(&queue->all_nodes[i], &queue->all_nodes[i+1]);
+  
   queue->length--;
-
   return data;
 }
 
@@ -71,6 +78,3 @@ void print_priority_queue(struct priority_queue *queue) {
     printf("[%d] %s\n", node.priority, node.data);
   }
 }
-
-//struct priority_queue queue = {};
-//initialize_priority_queue(&queue, 10);
