@@ -13,7 +13,7 @@ struct priority_queue {
   int max_length;
 };
 
-_Bool initialize_priority_queue(struct priority_queue *queue, int number_of_elements);
+struct priority_queue initialize_priority_queue(int number_of_elements);
 void destroy_priority_queue(struct priority_queue *queue);
 void swap_nodes(struct priority_node *a, struct priority_node *b);
 _Bool push_to_priority_queue(struct priority_queue *queue, int priority, char *data);

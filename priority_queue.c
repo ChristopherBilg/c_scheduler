@@ -3,16 +3,18 @@
 #include <stdio.h>
 #include "priority_queue.h"
 
-_Bool initialize_priority_queue(struct priority_queue *queue, int number_of_elements) {
+struct priority_queue initialize_priority_queue(int number_of_elements) {
   if (number_of_elements <= 0)
-    return false;
+    number_of_elements = 100000;
 
-  queue->length = 0;
-  queue->max_length = number_of_elements;
-  queue->all_nodes = (struct priority_node *)realloc(queue->all_nodes,
+  struct priority_queue queue = {NULL, 0, 0};
+
+  queue.length = 0;
+  queue.max_length = number_of_elements;
+  queue.all_nodes = (struct priority_node *)realloc(queue.all_nodes,
                                                      number_of_elements * sizeof(struct priority_node));
 
-  return true;
+  return queue;
 }
 
 void destroy_priority_queue(struct priority_queue *queue) {
@@ -50,7 +52,7 @@ _Bool push_to_priority_queue(struct priority_queue *queue, int priority, char *d
 // (Needs to be tested) Lower number should now equate to higher priority
 char* pop_from_priority_queue(struct priority_queue *queue) {
   if (priority_queue_is_empty(queue))
-    return NULL;
+    return "ERR: The priority queue is empty.";
 
   //char* data = queue->all_nodes[queue->length-1].data;
   //queue->length--;
