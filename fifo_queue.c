@@ -4,13 +4,14 @@
 #include <stdlib.h> 
 #include "fifo_queue.h"
 
+// A utility function to create a new linked list node. 
 struct QNode* newNode(int k) 
 { 
 	struct QNode *temp = (struct QNode*)malloc(sizeof(struct QNode)); 
-	temp->key = k; 
+	temp->k = k; 
 	temp->next = NULL; 
 	return temp; 
-}
+} 
 
 // A utility function to create an empty queue 
 struct Queue *createQueue() 

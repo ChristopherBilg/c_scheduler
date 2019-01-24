@@ -9,7 +9,7 @@
 // A linked list (LL) node to store a queue entry 
 struct QNode
 {
-	int key;
+	int k;
 	struct QNode *next;
 };
 
