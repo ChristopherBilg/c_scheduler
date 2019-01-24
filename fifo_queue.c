@@ -1,19 +1,16 @@
 // Obtained publically and freely (open-source) at https://www.geeksforgeeks.org/queue-set-2-linked-list-implementation/
 // Professor Kwatny allowed the use of public domain works in our projects.
 
-// A C program to demonstrate linked list based implementation of queue 
 #include <stdlib.h> 
-#include <stdio.h>
 #include "fifo_queue.h"
 
-// A utility function to create a new linked list node. 
 struct QNode* newNode(int k) 
 { 
 	struct QNode *temp = (struct QNode*)malloc(sizeof(struct QNode)); 
 	temp->key = k; 
 	temp->next = NULL; 
 	return temp; 
-} 
+}
 
 // A utility function to create an empty queue 
 struct Queue *createQueue() 
@@ -21,7 +18,13 @@ struct Queue *createQueue()
 	struct Queue *q = (struct Queue*)malloc(sizeof(struct Queue)); 
 	q->front = q->rear = NULL; 
 	return q; 
-} 
+}
+
+// Destroy a queue in memory
+void destroyQueue(struct Queue *queue)
+{
+  free(queue);
+}
 
 // The function to add a key k to q 
 void enQueue(struct Queue *q, int k) 
