@@ -15,6 +15,11 @@ int main() {
   push_to_priority_queue(&p_queue, conf.FIN_TIME, "Simulation ending");
 
   // init. fifo_queue for cpu_queue, disk1_queue, and disk2_queue
+  // Make fifo_queue my own instead of 3rd party
+  struct Queue *cpu_queue = createQueue();
+  struct Queue *disk1_queue = createQueue();
+  struct Queue *disk2_queue = createQueue();
+  
   // Make event enum Event
 
   // Main running loop
@@ -23,5 +28,10 @@ int main() {
   }
 
   destroy_priority_queue(&p_queue);
+  destroyQueue(cpu_queue);
+  destroyQueue(disk1_queue);
+  destroyQueue(disk2_queue);
+
+  printf("Program finished successfully.\n");
   return 1;
 }
