@@ -7,12 +7,13 @@ int main() {
   struct Configuration conf = read_config_file("CONFIG.ini");
 
   int current_time = conf.INIT_TIME;
+  int job_number = 1;
 
   // Create and initialize all of the queues
   struct priority_queue p_queue = initialize_priority_queue(100000);
-  push_to_priority_queue(&p_queue, current_time, "Simulation starting");
-  push_to_priority_queue(&p_queue, 0, "Job 1 arrived");
-  push_to_priority_queue(&p_queue, conf.FIN_TIME, "Simulation ending");
+  push_to_priority_queue(&p_queue, current_time, "Simulation:", "STARTING");
+  push_to_priority_queue(&p_queue, 0, "Job 1", "ARRIVED");
+  push_to_priority_queue(&p_queue, conf.FIN_TIME, "Simulation:", "ENDING");
 
   // init. fifo_queue for cpu_queue, disk1_queue, and disk2_queue
   // Make fifo_queue my own instead of 3rd party

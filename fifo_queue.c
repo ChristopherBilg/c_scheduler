@@ -5,10 +5,10 @@
 #include "fifo_queue.h"
 
 // A utility function to create a new linked list node. 
-struct QNode* newNode(int k) 
+struct QNode* newNode(int job) 
 { 
 	struct QNode *temp = (struct QNode*)malloc(sizeof(struct QNode)); 
-	temp->k = k; 
+	temp->job = job; 
 	temp->next = NULL; 
 	return temp; 
 } 
@@ -28,15 +28,15 @@ void destroyQueue(struct Queue *queue)
 }
 
 // The function to add a key k to q 
-void enQueue(struct Queue *q, int k) 
+void enQueue(struct Queue *q, int job) 
 { 
 	// Create a new LL node 
-	struct QNode *temp = newNode(k); 
+	struct QNode *temp = newNode(job); 
 
 	// If queue is empty, then new node is front and rear both 
 	if (q->rear == NULL) 
 	{ 
-	q->front = q->rear = temp; 
+	q->front = q->rear = temp;
 	return; 
 	} 
 

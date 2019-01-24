@@ -27,12 +27,13 @@ void swap_nodes(struct priority_node *a, struct priority_node *b) {
   *b = temp;
 }
 
-_Bool push_to_priority_queue(struct priority_queue *queue, int priority, char *data) {
+_Bool push_to_priority_queue(struct priority_queue *queue, int priority, int job, char *event) {
   if (priority_queue_is_full(queue))
     return false;
 
   queue->all_nodes[queue->length].priority = priority;
-  queue->all_nodes[queue->length].data = data;
+  queue->all_nodes[queue->length].job = job;
+  queue->all_nodes[queue->length].event = event;
 
   int new = queue->length;
   int next = queue->length - 1;
@@ -50,20 +51,21 @@ _Bool push_to_priority_queue(struct priority_queue *queue, int priority, char *d
 
 // Higher number equates to higher priority
 // (Needs to be tested) Lower number should now equate to higher priority
-char* pop_from_priority_queue(struct priority_queue *queue) {
-  if (priority_queue_is_empty(queue))
-    return "ERR: The priority queue is empty.";
-
+struct priority_node pop_from_priority_queue(struct priority_queue *queue) {
   //char* data = queue->all_nodes[queue->length-1].data;
   //queue->length--;
   //return data;
 
-  char* data = queue->all_nodes[0].data;
+  int priority = queue->all_nodes[0].priority;
+  int job = queue->all_nodes[0].job;
+  char *event = queue->all_nodes[0].event;
+  struct priority_node node = {priority, job, event};
+  
   for (int i = 0; i < queue->length; i++)
     swap_nodes(&queue->all_nodes[i], &queue->all_nodes[i+1]);
   
   queue->length--;
-  return data;
+  return node;
 }
 
 _Bool priority_queue_is_empty(struct priority_queue *queue) {
@@ -77,6 +79,6 @@ _Bool priority_queue_is_full(struct priority_queue *queue) {
 void print_priority_queue(struct priority_queue *queue) {
   for (int i=0; i < queue->length; i++) {
     struct priority_node node = queue->all_nodes[i];
-    printf("[%d] %s\n", node.priority, node.data);
+    printf("[%d] Job %d | %s\n", node.priority, node.job, node.event);
   }
 }
