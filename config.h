@@ -1,21 +1,20 @@
 #ifndef _HEADER_NAME_
 #define _HEADER_NAME_
-#define BUFF 1024
 #endif
 
 struct Config {
-  char SEED[BUFF];
-  char INIT_TIME[BUFF];
-  char FIN_TIME[BUFF];
-  char ARRIVE_MIN[BUFF];
-  char ARRIVE_MAX[BUFF];
-  char QUIT_PROB[BUFF];
-  char CPU_MIN[BUFF];
-  char CPU_MAX[BUFF];
-  char DISK1_MIN[BUFF];
-  char DISK1_MAX[BUFF];
-  char DISK2_MIN[BUFF];
-  char DISK2_MAX[BUFF];
+  char SEED[1024];
+  char INIT_TIME[1024];
+  char FIN_TIME[1024];
+  char ARRIVE_MIN[1024];
+  char ARRIVE_MAX[1024];
+  char QUIT_PROB[1024];
+  char CPU_MIN[1024];
+  char CPU_MAX[1024];
+  char DISK1_MIN[1024];
+  char DISK1_MAX[1024];
+  char DISK2_MIN[1024];
+  char DISK2_MAX[1024];
 };
 
 struct Configuration {
