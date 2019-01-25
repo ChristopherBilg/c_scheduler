@@ -27,7 +27,7 @@ void swap_nodes(struct priority_node *a, struct priority_node *b) {
   *b = temp;
 }
 
-_Bool push_to_priority_queue(struct priority_queue *queue, int priority, int job, char *event) {
+_Bool push_to_priority_queue(struct priority_queue *queue, int priority, int job, enum EVENT event) {
   if (priority_queue_is_full(queue))
     return false;
 
@@ -58,7 +58,7 @@ struct priority_node pop_from_priority_queue(struct priority_queue *queue) {
 
   int priority = queue->all_nodes[0].priority;
   int job = queue->all_nodes[0].job;
-  char *event = queue->all_nodes[0].event;
+  enum EVENT event = queue->all_nodes[0].event;
   struct priority_node node = {priority, job, event};
   
   for (int i = 0; i < queue->length; i++)
@@ -79,6 +79,6 @@ _Bool priority_queue_is_full(struct priority_queue *queue) {
 void print_priority_queue(struct priority_queue *queue) {
   for (int i=0; i < queue->length; i++) {
     struct priority_node node = queue->all_nodes[i];
-    printf("[%d] Job %d | %s\n", node.priority, node.job, node.event);
+    printf("[%d] Job %d | %d\n", node.priority, node.job, node.event);
   }
 }
