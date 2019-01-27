@@ -34,7 +34,7 @@ int main() {
   enum EVENT current_event;
 
   // Main running loop
-  while (current_time < conf.FIN_TIME) {
+  while (true) {
     struct priority_node current_node = pop_from_priority_queue(&p_queue);
     current_event = current_node.event;
     switch (current_event) {
@@ -44,9 +44,15 @@ int main() {
       break;
     case SIM_ENDING:
       printf("Simulation ending at time: %d\n", current_time);
+
+      destroy_priority_queue(&p_queue);
+      destroyQueue(cpu_queue);
+      destroyQueue(disk1_queue);
+      destroyQueue(disk2_queue);
+
       return 1;
     case ARRIVED:
-      printf("New job #%d arrived at time: %d\n", current_node.job, current_time);
+      printf("Job #%d arrived at time: %d\n", current_node.job, current_time);
       enQueue(cpu_queue, current_node.job);
 
       int arrival_time = generate_int(conf.ARRIVE_MIN, conf.ARRIVE_MAX);
@@ -118,11 +124,5 @@ int main() {
     disk2_idle = process_disk2(disk2_queue, &p_queue, disk2_idle, current_time);
   }
 
-  destroy_priority_queue(&p_queue);
-  destroyQueue(cpu_queue);
-  destroyQueue(disk1_queue);
-  destroyQueue(disk2_queue);
-
-  printf("Program finished successfully at time %d.\n", current_time);
   return 1;
 }
