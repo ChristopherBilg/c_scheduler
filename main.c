@@ -50,47 +50,43 @@ int main() {
       enQueue(cpu_queue, current_node.job);
 
       int arrival_time = generate_int(conf.ARRIVE_MIN, conf.ARRIVE_MAX);
-      //current_time += arrival_time;
+      current_time += arrival_time;
       job_number++;
+      push_to_priority_queue(&p_queue, current_time, job_number, ARRIVED);
       
-      push_to_priority_queue(&p_queue, current_time + arrival_time, job_number, ARRIVED);
       break;
     case FINISHED:
       printf("Job #%d finished at time: %d\n", current_node.job, current_time);
       break;
     case CPU_ARRIVED:
       printf("Job #%d arrived at CPU at time: %d\n", current_node.job, current_time);
-      // not sure if I should be setting time to 0 here actually
-      current_time = current_node.priority;
       int cpu_finish_time = generate_int(conf.CPU_MIN, conf.CPU_MAX);
-      current_time += cpu_finish_time;
+      //current_time += cpu_finish_time;
       
-      push_to_priority_queue(&p_queue, cpu_finish_time, current_node.job, CPU_FINISHED);
+      push_to_priority_queue(&p_queue, current_time + cpu_finish_time, current_node.job, CPU_FINISHED);
       break;
     case CPU_FINISHED:
       printf("Job #%d finished at CPU at time: %d\n", current_node.job, current_time);
       _Bool quit = probability_select(conf.QUIT_PROB);
       if (quit == true) {
-        cpu_idle = true;
         push_to_priority_queue(&p_queue, current_time, current_node.job, FINISHED);
       }
       else {
-        cpu_idle = true;
-        if (disk1_queue->size <= disk2_queue->size) {
+        if (disk1_queue->size < disk2_queue->size) {
           enQueue(disk1_queue, current_node.job);
         }
         else {
           enQueue(disk2_queue, current_node.job);
         }
       }
+      cpu_idle = true;
       break;
     case DISK1_ARRIVED:
       printf("Job #%d arrived at Disk1 at time: %d\n", current_node.job, current_time);
-      current_time = current_node.priority;
       int disk1_finish_time = generate_int(conf.DISK1_MIN, conf.DISK1_MAX);
-      current_time += disk1_finish_time;
+      //current_time += disk1_finish_time;
 
-      push_to_priority_queue(&p_queue, current_time, current_node.job, DISK1_FINISHED);
+      push_to_priority_queue(&p_queue, current_time + disk1_finish_time, current_node.job, DISK1_FINISHED);
       enQueue(disk1_queue, current_node.job);
       break;
     case DISK1_FINISHED:
@@ -100,11 +96,10 @@ int main() {
       break;
     case DISK2_ARRIVED:
       printf("Job #%d arrived at Disk2 at time: %d\n", current_node.job, current_time);
-      current_time = current_node.priority;
       int disk2_finish_time = generate_int(conf.DISK2_MIN, conf.DISK2_MAX);
-      current_time += disk2_finish_time;
+      //current_time += disk2_finish_time;
 
-      push_to_priority_queue(&p_queue, current_time, current_node.job, DISK2_FINISHED);
+      push_to_priority_queue(&p_queue, current_time + disk2_finish_time, current_node.job, DISK2_FINISHED);
       enQueue(disk2_queue, current_node.job);
       break;
     case DISK2_FINISHED:

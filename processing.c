@@ -29,7 +29,7 @@ _Bool process_disk1(struct Queue *queue, struct priority_queue *p_queue, _Bool i
   struct QNode *node = deQueue(queue);
   push_to_priority_queue(p_queue, current_time, node->job, DISK1_ARRIVED);
   
-  return true;
+  return false;
 }
 
 _Bool process_disk2(struct Queue *queue, struct priority_queue *p_queue, _Bool idle, int current_time) {
@@ -44,5 +44,5 @@ _Bool process_disk2(struct Queue *queue, struct priority_queue *p_queue, _Bool i
   struct QNode *node = deQueue(queue);
   push_to_priority_queue(p_queue, current_time, node->job, DISK2_ARRIVED);
   
-  return true;
+  return false;
 }
