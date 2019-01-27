@@ -108,7 +108,8 @@ int main() {
       push_to_priority_queue(&p_queue, current_time, current_node.job, FINISHED);
       break;
     default:
-      // This should never be called but just in case it is, we'll break.
+      perror("Something went wrong and the switch statement defaulted.");
+      exit(EXIT_FAILURE);
       break;
     }
 
