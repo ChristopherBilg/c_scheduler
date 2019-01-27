@@ -77,16 +77,16 @@ struct Configuration read_config_file(char *filename) {
 }
 
 void print_config_struct(struct Configuration config) {
-  printf("%d\n", config.SEED);
-  printf("%d\n", config.INIT_TIME);
-  printf("%d\n", config.FIN_TIME);
-  printf("%d\n", config.ARRIVE_MIN);
-  printf("%d\n", config.ARRIVE_MAX);
-  printf("%d\n", config.QUIT_PROB);
-  printf("%d\n", config.CPU_MIN);
-  printf("%d\n", config.CPU_MAX);
-  printf("%d\n", config.DISK1_MIN);
-  printf("%d\n", config.DISK1_MAX);
-  printf("%d\n", config.DISK2_MIN);
-  printf("%d\n", config.DISK2_MAX);
+  printf("SEED: %d\n", config.SEED);
+  printf("INIT_TIME: %d\n", config.INIT_TIME);
+  printf("FIN_TIME: %d\n", config.FIN_TIME);
+  printf("ARRIVE_MIN: %d\n", config.ARRIVE_MIN);
+  printf("ARRIVE_MAX: %d\n", config.ARRIVE_MAX);
+  printf("QUIT_PROB: %d\n", config.QUIT_PROB);
+  printf("CPU_MIN: %d\n", config.CPU_MIN);
+  printf("CPU_MAX: %d\n", config.CPU_MAX);
+  printf("DISK1_MIN: %d\n", config.DISK1_MIN);
+  printf("DISK1_MAX: %d\n", config.DISK1_MAX);
+  printf("DISK2_MIN: %d\n", config.DISK2_MIN);
+  printf("DISK2_MAX: %d\n", config.DISK2_MAX);
 }
