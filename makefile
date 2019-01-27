@@ -1,5 +1,5 @@
-output: main.o random.o config.o fifo_queue.o priority_queue.o
-	gcc main.o random.o config.o fifo_queue.o priority_queue.o -o output -lm -g
+output: main.o random.o config.o fifo_queue.o priority_queue.o processing.o
+	gcc main.o random.o config.o fifo_queue.o priority_queue.o processing.o -o output -lm -g
 
 main.o: main.c
 	gcc main.c -c -lm -g
@@ -15,3 +15,6 @@ fifo_queue.o: fifo_queue.c
 
 priority_queue.o: priority_queue.c
 	gcc priority_queue.c -c -lm -g
+
+processing.o: processing.c
+	gcc processing.c -c -lm -g

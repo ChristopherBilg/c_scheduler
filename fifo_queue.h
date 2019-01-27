@@ -17,6 +17,7 @@ struct QNode
 struct Queue
 {
 	struct QNode *front, *rear;
+  int size;
 };
 
 struct QNode* newNode(int k);
