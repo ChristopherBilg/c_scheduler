@@ -33,7 +33,11 @@ int main() {
   // Make event enum Event
   enum EVENT current_event;
 
+  // Statistics variables
+  int num_finished = 0;
+
   // Main running loop
+  print_config_struct(conf);
   while (true) {
     struct priority_node current_node = pop_from_priority_queue(&p_queue);
     current_event = current_node.event;
@@ -43,7 +47,7 @@ int main() {
       printf("Simulation starting at time: %d\n", current_time);
       break;
     case SIM_ENDING:
-      printf("Simulation ending at time: %d\n", current_time);
+      printf("Simulation ending at time: %d with %d jobs finished completely\n", current_time, num_finished);
 
       destroy_priority_queue(&p_queue);
       destroyQueue(cpu_queue);
@@ -63,6 +67,7 @@ int main() {
       break;
     case FINISHED:
       printf("Job #%d finished at time: %d\n", current_node.job, current_time);
+      num_finished++;
       break;
     case CPU_ARRIVED:
       printf("Job #%d arrived at CPU at time: %d\n", current_node.job, current_time);
