@@ -49,8 +49,7 @@ _Bool push_to_priority_queue(struct priority_queue *queue, int priority, int job
   return true;
 }
 
-// Higher number equates to higher priority
-// (Needs to be tested) Lower number should now equate to higher priority
+// Lower number should now equate to higher priority
 struct priority_node pop_from_priority_queue(struct priority_queue *queue) {
 
   int priority = queue->all_nodes[0].priority;
