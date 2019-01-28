@@ -52,9 +52,6 @@ _Bool push_to_priority_queue(struct priority_queue *queue, int priority, int job
 // Higher number equates to higher priority
 // (Needs to be tested) Lower number should now equate to higher priority
 struct priority_node pop_from_priority_queue(struct priority_queue *queue) {
-  //char* data = queue->all_nodes[queue->length-1].data;
-  //queue->length--;
-  //return data;
 
   int priority = queue->all_nodes[0].priority;
   int job = queue->all_nodes[0].job;
@@ -69,11 +66,11 @@ struct priority_node pop_from_priority_queue(struct priority_queue *queue) {
 }
 
 _Bool priority_queue_is_empty(struct priority_queue *queue) {
-  return true ? queue->length == 0 : false;
+  return queue->length == 0 ? true : false;
 }
 
 _Bool priority_queue_is_full(struct priority_queue *queue) {
-  return true ? queue->length == queue->max_length : false;
+  return queue->length == queue->max_length ? true : false;
 }
 
 void print_priority_queue(struct priority_queue *queue) {
