@@ -11,8 +11,7 @@ struct priority_queue initialize_priority_queue(int number_of_elements) {
 
   queue.length = 0;
   queue.max_length = number_of_elements;
-  queue.all_nodes = (struct priority_node *)realloc(queue.all_nodes,
-                                                     number_of_elements * sizeof(struct priority_node));
+  queue.all_nodes = (struct priority_node *)malloc(number_of_elements * sizeof(struct priority_node));
 
   return queue;
 }
