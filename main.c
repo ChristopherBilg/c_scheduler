@@ -47,7 +47,7 @@ int main() {
       printf("Simulation starting at time: %d\n", current_time);
       break;
     case SIM_ENDING:
-      printf("Simulation ending at time: %d with %d jobs finished completely\n", current_time, num_finished);
+      printf("Simulation ending at time: %d with %d jobs finished completely\n", current_node.priority, num_finished);
 
       destroy_priority_queue(&p_queue);
       destroyQueue(cpu_queue);
@@ -56,7 +56,7 @@ int main() {
 
       return 1;
     case ARRIVED:
-      printf("Job #%d arrived at time: %d\n", current_node.job, current_time);
+      printf("Job #%d arrived at time: %d\n", current_node.job, current_node.priority);
       enQueue(cpu_queue, current_node.job);
 
       int arrival_time = generate_int(conf.ARRIVE_MIN, conf.ARRIVE_MAX);
@@ -66,21 +66,20 @@ int main() {
       
       break;
     case FINISHED:
-      printf("Job #%d finished at time: %d\n", current_node.job, current_time);
+      printf("Job #%d finished at time: %d\n", current_node.job, current_node.priority);
       num_finished++;
       break;
     case CPU_ARRIVED:
-      printf("Job #%d arrived at CPU at time: %d\n", current_node.job, current_time);
+      printf("Job #%d arrived at CPU at time: %d\n", current_node.job, current_node.priority);
       int cpu_finish_time = generate_int(conf.CPU_MIN, conf.CPU_MAX);
-      //current_time += cpu_finish_time;
       
-      push_to_priority_queue(&p_queue, current_time + cpu_finish_time, current_node.job, CPU_FINISHED);
+      push_to_priority_queue(&p_queue, current_node.priority + cpu_finish_time, current_node.job, CPU_FINISHED);
       break;
     case CPU_FINISHED:
-      printf("Job #%d finished at CPU at time: %d\n", current_node.job, current_time);
+      printf("Job #%d finished at CPU at time: %d\n", current_node.job, current_node.priority);
       _Bool quit = probability_select(conf.QUIT_PROB);
       if (quit == true) {
-        push_to_priority_queue(&p_queue, current_time, current_node.job, FINISHED);
+        push_to_priority_queue(&p_queue, current_node.priority, current_node.job, FINISHED);
       }
       else {
         if (disk1_queue->size < disk2_queue->size) {
@@ -93,30 +92,28 @@ int main() {
       cpu_idle = true;
       break;
     case DISK1_ARRIVED:
-      printf("Job #%d arrived at Disk1 at time: %d\n", current_node.job, current_time);
+      printf("Job #%d arrived at Disk1 at time: %d\n", current_node.job, current_node.priority);
       int disk1_finish_time = generate_int(conf.DISK1_MIN, conf.DISK1_MAX);
-      //current_time += disk1_finish_time;
 
-      push_to_priority_queue(&p_queue, current_time + disk1_finish_time, current_node.job, DISK1_FINISHED);
+      push_to_priority_queue(&p_queue, current_node.priority + disk1_finish_time, current_node.job, DISK1_FINISHED);
       enQueue(disk1_queue, current_node.job);
       break;
     case DISK1_FINISHED:
-      printf("Job #%d finished at Disk1 at time: %d\n", current_node.job, current_time);
+      printf("Job #%d finished at Disk1 at time: %d\n", current_node.job, current_node.priority);
       disk1_idle = true;
-      push_to_priority_queue(&p_queue, current_time, current_node.job, FINISHED);
+      push_to_priority_queue(&p_queue, current_node.priority, current_node.job, FINISHED);
       break;
     case DISK2_ARRIVED:
-      printf("Job #%d arrived at Disk2 at time: %d\n", current_node.job, current_time);
+      printf("Job #%d arrived at Disk2 at time: %d\n", current_node.job, current_node.priority);
       int disk2_finish_time = generate_int(conf.DISK2_MIN, conf.DISK2_MAX);
-      //current_time += disk2_finish_time;
 
-      push_to_priority_queue(&p_queue, current_time + disk2_finish_time, current_node.job, DISK2_FINISHED);
+      push_to_priority_queue(&p_queue, current_node.priority + disk2_finish_time, current_node.job, DISK2_FINISHED);
       enQueue(disk2_queue, current_node.job);
       break;
     case DISK2_FINISHED:
-      printf("Job #%d finished at Disk2 at time: %d\n", current_node.job, current_time);
+      printf("Job #%d finished at Disk2 at time: %d\n", current_node.job, current_node.priority);
       disk2_idle = true;
-      push_to_priority_queue(&p_queue, current_time, current_node.job, FINISHED);
+      push_to_priority_queue(&p_queue, current_node.priority, current_node.job, FINISHED);
       break;
     default:
       perror("Something went wrong and the switch statement defaulted.");
