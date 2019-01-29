@@ -3,9 +3,7 @@
 #include "random.h"
 
 int generate_int(int minimum, int maximum) {
-  int rand_number = random() % (minimum + maximum + 1);
-  rand_number += minimum;
-
+  int rand_number = (rand() % (maximum + 1 - minimum)) + minimum;;
   return rand_number;
 }
 

@@ -15,6 +15,8 @@ struct Queue
 {
 	struct QNode *front, *rear;
   int size;
+  int statistics_max_size;
+  int statistics_average_size_total;
 };
 
 struct QNode* newNode(int k);

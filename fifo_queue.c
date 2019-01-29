@@ -18,6 +18,8 @@ struct Queue *createQueue() {
   struct Queue *q = (struct Queue*)malloc(sizeof(struct Queue));
   q->front = q->rear = NULL;
   q->size = 0;
+  q->statistics_max_size = 0;
+  q->statistics_average_size_total = 0;
   return q;
 }
 
@@ -32,11 +34,17 @@ void enQueue(struct Queue *q, int job) {
   struct QNode *temp = newNode(job);
   q->size++;
 
+  // Statistics
+  q->statistics_average_size_total++;
+  if (q->statistics_max_size < q->size)
+    q->statistics_max_size = q->size;
+  
   // If queue is empty, then new node is front and rear both
   if (q->rear == NULL)
   {
     q->front = q->rear = temp;
     q->size = 1;
+    q->statistics_max_size = 1;
     return;
   }
 

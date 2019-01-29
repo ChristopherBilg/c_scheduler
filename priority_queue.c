@@ -7,10 +7,11 @@ struct priority_queue initialize_priority_queue(int number_of_elements) {
   if (number_of_elements <= 0)
     number_of_elements = 100000;
 
-  struct priority_queue queue = {NULL, 0, 0};
+  struct priority_queue queue = {NULL, 0, 0, 0};
 
   queue.length = 0;
   queue.max_length = number_of_elements;
+  queue.statistics_max_size = 0;
   queue.all_nodes = (struct priority_node *)malloc(number_of_elements * sizeof(struct priority_node));
 
   return queue;
@@ -44,6 +45,10 @@ _Bool push_to_priority_queue(struct priority_queue *queue, int priority, int job
   }
 
   queue->length++;
+  // Statistics
+  queue->statistics_average_size_total++;
+  if (queue->statistics_max_size < queue->length)
+    queue->statistics_max_size = queue->length;
   
   return true;
 }
