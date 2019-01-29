@@ -63,17 +63,17 @@ int main() {
       printf("\tPriority Queue Average Size: %d/%d\n", p_queue.length, p_queue.statistics_average_size_total);
       
       printf("\n\tCPU FIFO Queue Max Size: %d\n", cpu_queue->statistics_max_size);
-      printf("\tCPU FIFO Queue Average Size: %d/%d\n", cpu_queue->size, cpu_queue->statistics_average_size_total);
+      printf("\tCPU FIFO Queue Average Size: %d/%d\n", cpu_queue->statistics_max_size, cpu_queue->statistics_average_size_total);
       printf("\tCPU Utilization: %d/%d\n", cpu_time_busy, conf.FIN_TIME-conf.INIT_TIME);
       printf("\tCPU Max Response Time: %d\n", cpu_max_response_time);
       
       printf("\n\tDisk1 FIFO Queue Max Size: %d\n", disk1_queue->statistics_max_size);
-      printf("\tDisk1 FIFO Queue Average Size: %d/%d\n", disk1_queue->size, disk1_queue->statistics_average_size_total);
+      printf("\tDisk1 FIFO Queue Average Size: %d/%d\n", disk1_queue->statistics_max_size, disk1_queue->statistics_average_size_total);
       printf("\tDisk1 Utilization: %d/%d\n", disk1_time_busy, conf.FIN_TIME-conf.INIT_TIME);
       printf("\tDisk1 Max Response Time: %d\n", disk1_max_response_time);
       
       printf("\n\tDisk2 FIFO Queue Max Size: %d\n", disk2_queue->statistics_max_size);
-      printf("\tDisk2 FIFO Queue Average Size: %d/%d\n", disk2_queue->size, disk2_queue->statistics_average_size_total);
+      printf("\tDisk2 FIFO Queue Average Size: %d/%d\n", disk2_queue->statistics_max_size, disk2_queue->statistics_average_size_total);
       printf("\tDisk2 Utilization: %d/%d\n", disk2_time_busy, conf.FIN_TIME-conf.INIT_TIME);
       printf("\tDisk2 Max Response Time: %d\n", disk2_max_response_time);
       
@@ -139,7 +139,7 @@ int main() {
     case DISK1_FINISHED:
       printf("Job #%d finished at Disk1 at time: %d\n", current_node.job, current_node.priority);
       disk1_idle = true;
-      push_to_priority_queue(&p_queue, current_node.priority, current_node.job, FINISHED);
+      push_to_priority_queue(&p_queue, current_node.priority, current_node.job, ARRIVED);
       break;
     case DISK2_ARRIVED:
       printf("Job #%d arrived at Disk2 at time: %d\n", current_node.job, current_node.priority);
@@ -156,7 +156,7 @@ int main() {
     case DISK2_FINISHED:
       printf("Job #%d finished at Disk2 at time: %d\n", current_node.job, current_node.priority);
       disk2_idle = true;
-      push_to_priority_queue(&p_queue, current_node.priority, current_node.job, FINISHED);
+      push_to_priority_queue(&p_queue, current_node.priority, current_node.job, ARRIVED);
       break;
     default:
       perror("Something went wrong and the switch statement defaulted.");
