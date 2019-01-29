@@ -19,7 +19,6 @@ struct Queue *createQueue() {
   q->front = q->rear = NULL;
   q->size = 0;
   q->statistics_max_size = 0;
-  q->statistics_average_size_total = 0;
   return q;
 }
 
@@ -32,10 +31,9 @@ void destroyQueue(struct Queue *queue) {
 void enQueue(struct Queue *q, int job) {
   // Create a new LL node
   struct QNode *temp = newNode(job);
-  q->size++;
 
+  q->size++;
   // Statistics
-  q->statistics_average_size_total++;
   if (q->statistics_max_size < q->size)
     q->statistics_max_size = q->size;
   
@@ -44,7 +42,6 @@ void enQueue(struct Queue *q, int job) {
   {
     q->front = q->rear = temp;
     q->size = 1;
-    q->statistics_max_size = 1;
     return;
   }
 

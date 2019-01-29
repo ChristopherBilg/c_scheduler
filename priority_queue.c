@@ -46,7 +46,6 @@ _Bool push_to_priority_queue(struct priority_queue *queue, int priority, int job
 
   queue->length++;
   // Statistics
-  queue->statistics_average_size_total++;
   if (queue->statistics_max_size < queue->length)
     queue->statistics_max_size = queue->length;
   

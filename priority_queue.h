@@ -26,7 +26,6 @@ struct priority_queue {
   int length;
   int max_length;
   int statistics_max_size;
-  int statistics_average_size_total;
 };
 
 struct priority_queue initialize_priority_queue(int number_of_elements);

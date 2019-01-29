@@ -39,6 +39,19 @@ int main() {
   int cpu_max_response_time = 0;
   int disk1_max_response_time = 0;
   int disk2_max_response_time = 0;
+
+  // Average Size and Average Response Time for each Server Component (Statistics)
+  int total_cpu_response_time = 0;
+  int total_disk1_response_time = 0;
+  int total_disk2_response_time = 0;
+
+  // Throughput Statistics of each Server Component
+  int cpu_jobs_began = 0;
+  int disk1_jobs_began = 0;
+  int disk2_jobs_began = 0;
+  int cpu_jobs_completed = 0;
+  int disk1_jobs_completed = 0;
+  int disk2_jobs_completed = 0;
   
   // Make event enum Event
   enum EVENT current_event;
@@ -60,22 +73,28 @@ int main() {
       printf("Simulation ending at time: %d with %d jobs finished completely\n", current_node.priority, num_finished);
       printf("Statistics:\n");
       printf("\tEvent Priority Queue Max Size: %d\n", p_queue.statistics_max_size);
-      printf("\tPriority Queue Average Size: %d/%d\n", p_queue.length, p_queue.statistics_average_size_total);
+      printf("\tPriority Queue Average Size: %d/%d\n", 99, 99);
       
       printf("\n\tCPU FIFO Queue Max Size: %d\n", cpu_queue->statistics_max_size);
-      printf("\tCPU FIFO Queue Average Size: %d/%d\n", cpu_queue->statistics_max_size, cpu_queue->statistics_average_size_total);
+      printf("\tCPU FIFO Queue Average Size: %d/%d\n", 99, 99);
       printf("\tCPU Utilization: %d/%d\n", cpu_time_busy, conf.FIN_TIME-conf.INIT_TIME);
       printf("\tCPU Max Response Time: %d\n", cpu_max_response_time);
+      printf("\tCPU Average Response Time: %d/%d\n", total_cpu_response_time, cpu_jobs_began);
+      printf("\tCPU Throughout: %d/%d\n", cpu_jobs_completed, cpu_time_busy);
       
       printf("\n\tDisk1 FIFO Queue Max Size: %d\n", disk1_queue->statistics_max_size);
-      printf("\tDisk1 FIFO Queue Average Size: %d/%d\n", disk1_queue->statistics_max_size, disk1_queue->statistics_average_size_total);
+      printf("\tDisk1 FIFO Queue Average Size: %d/%d\n", 99, 99);
       printf("\tDisk1 Utilization: %d/%d\n", disk1_time_busy, conf.FIN_TIME-conf.INIT_TIME);
       printf("\tDisk1 Max Response Time: %d\n", disk1_max_response_time);
+      printf("\tDisk1 Average Response Time: %d/%d\n", total_disk1_response_time, disk1_jobs_began);
+      printf("\tDisk1 Throughout: %d/%d\n", disk1_jobs_completed, disk1_time_busy);
       
       printf("\n\tDisk2 FIFO Queue Max Size: %d\n", disk2_queue->statistics_max_size);
-      printf("\tDisk2 FIFO Queue Average Size: %d/%d\n", disk2_queue->statistics_max_size, disk2_queue->statistics_average_size_total);
+      printf("\tDisk2 FIFO Queue Average Size: %d/%d\n", 99, 99);
       printf("\tDisk2 Utilization: %d/%d\n", disk2_time_busy, conf.FIN_TIME-conf.INIT_TIME);
       printf("\tDisk2 Max Response Time: %d\n", disk2_max_response_time);
+      printf("\tDisk2 Average Response Time: %d/%d\n", total_disk2_response_time, disk2_jobs_began);
+      printf("\tDisk2 Throughout: %d/%d\n", disk2_jobs_completed, disk2_time_busy);
       
       destroy_priority_queue(&p_queue);
       destroyQueue(cpu_queue);
@@ -105,6 +124,8 @@ int main() {
       cpu_time_busy += cpu_finish_time;
       if (cpu_max_response_time < cpu_finish_time)
         cpu_max_response_time = cpu_finish_time;
+      total_cpu_response_time += cpu_finish_time;
+      cpu_jobs_began++;
       
       push_to_priority_queue(&p_queue, current_node.priority + cpu_finish_time, current_node.job, CPU_FINISHED);
       break;
@@ -122,7 +143,10 @@ int main() {
           enQueue(disk2_queue, current_node.job);
         }
       }
+      
       cpu_idle = true;
+      cpu_jobs_completed++;
+      
       break;
     case DISK1_ARRIVED:
       printf("Job #%d arrived at Disk1 at time: %d\n", current_node.job, current_node.priority);
@@ -132,6 +156,8 @@ int main() {
       disk1_time_busy += disk1_finish_time;
       if (disk1_max_response_time < disk1_finish_time)
         disk1_max_response_time = disk1_finish_time;
+      total_disk1_response_time += disk1_finish_time;
+      disk1_jobs_began++;
 
       push_to_priority_queue(&p_queue, current_node.priority + disk1_finish_time, current_node.job, DISK1_FINISHED);
       enQueue(disk1_queue, current_node.job);
@@ -140,6 +166,8 @@ int main() {
       printf("Job #%d finished at Disk1 at time: %d\n", current_node.job, current_node.priority);
       disk1_idle = true;
       push_to_priority_queue(&p_queue, current_node.priority, current_node.job, ARRIVED);
+
+      disk1_jobs_completed++;
       break;
     case DISK2_ARRIVED:
       printf("Job #%d arrived at Disk2 at time: %d\n", current_node.job, current_node.priority);
@@ -149,6 +177,8 @@ int main() {
       disk2_time_busy += disk2_finish_time;
       if (disk2_max_response_time < disk2_finish_time)
         disk2_max_response_time = disk2_finish_time;
+      total_disk2_response_time += disk2_finish_time;
+      disk2_jobs_began++;
 
       push_to_priority_queue(&p_queue, current_node.priority + disk2_finish_time, current_node.job, DISK2_FINISHED);
       enQueue(disk2_queue, current_node.job);
@@ -157,6 +187,8 @@ int main() {
       printf("Job #%d finished at Disk2 at time: %d\n", current_node.job, current_node.priority);
       disk2_idle = true;
       push_to_priority_queue(&p_queue, current_node.priority, current_node.job, ARRIVED);
+
+      disk2_jobs_completed++;
       break;
     default:
       perror("Something went wrong and the switch statement defaulted.");
