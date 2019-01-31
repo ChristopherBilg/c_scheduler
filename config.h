@@ -18,18 +18,18 @@ struct Config {
 };
 
 struct Configuration {
-  const unsigned int SEED;
-  const int INIT_TIME;
-  const int FIN_TIME;
-  const int ARRIVE_MIN;
-  const int ARRIVE_MAX;
-  const int QUIT_PROB;
-  const int CPU_MIN;
-  const int CPU_MAX;
-  const int DISK1_MIN;
-  const int DISK1_MAX;
-  const int DISK2_MIN;
-  const int DISK2_MAX;
+  unsigned int SEED;
+  int INIT_TIME;
+  int FIN_TIME;
+  int ARRIVE_MIN;
+  int ARRIVE_MAX;
+  int QUIT_PROB;
+  int CPU_MIN;
+  int CPU_MAX;
+  int DISK1_MIN;
+  int DISK1_MAX;
+  int DISK2_MIN;
+  int DISK2_MAX;
 };
 
 struct Configuration read_config_file(char *filename);
