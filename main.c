@@ -178,7 +178,7 @@ int main() {
       disk1_queue_increments++;
 
       push_to_priority_queue(&p_queue, current_node.priority + disk1_finish_time, current_node.job, DISK1_FINISHED);
-      enQueue(disk1_queue, current_node.job);
+      //enQueue(disk1_queue, current_node.job);
       break;
     case DISK1_FINISHED:
       printf("Job #%d finished at Disk1 at time: %d\n", current_node.job, current_node.priority);
@@ -202,7 +202,7 @@ int main() {
       disk2_queue_increments++;
 
       push_to_priority_queue(&p_queue, current_node.priority + disk2_finish_time, current_node.job, DISK2_FINISHED);
-      enQueue(disk2_queue, current_node.job);
+      //enQueue(disk2_queue, current_node.job);
       break;
     case DISK2_FINISHED:
       printf("Job #%d finished at Disk2 at time: %d\n", current_node.job, current_node.priority);
