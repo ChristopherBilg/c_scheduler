@@ -232,16 +232,17 @@ int main() {
 void runTests() {
   struct priority_queue queue = initialize_priority_queue(100);
 
-  printf("\nPushing 4 items into priority queue, in random order\n");
+  printf("\nTesting:\n");
+  printf("\tPushing 4 items into priority queue, in random order\n");
   push_to_priority_queue(&queue, generate_int(0, 500), 0, FINISHED);
   push_to_priority_queue(&queue, generate_int(0, 500), 0, ARRIVED);
   push_to_priority_queue(&queue, generate_int(0, 500), 0, SIM_ENDING);
   push_to_priority_queue(&queue, generate_int(0, 500), 0, SIM_STARTING);
 
-  printf("Popped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
-  printf("Popped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
-  printf("Popped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
-  printf("Popped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
+  printf("\tPopped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
+  printf("\tPopped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
+  printf("\tPopped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
+  printf("\tPopped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
 
   int counter = 0;
   int iterations = 1000;
@@ -251,7 +252,7 @@ void runTests() {
     if (pass == true)
       counter++;
   }
-  printf("\nProbability true (hopefully close to %d%%): %d/%d\n", ideal_prob, counter, iterations);
+  printf("\n\tProbability true (hopefully close to %d%%): %d/%d\n", ideal_prob, counter, iterations);
   
   return;
 }
