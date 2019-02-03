@@ -111,6 +111,8 @@ int main() {
       destroyQueue(disk1_queue);
       destroyQueue(disk2_queue);
 
+      runTests();
+
       return 1;
     case ARRIVED:
       printf("Job #%d arrived at time: %d\n", current_node.job, current_node.priority);
@@ -225,4 +227,31 @@ int main() {
   }
 
   return 1;
+}
+
+void runTests() {
+  struct priority_queue queue = initialize_priority_queue(100);
+
+  printf("\nPushing 4 items into priority queue, in random order\n");
+  push_to_priority_queue(&queue, generate_int(0, 500), 0, FINISHED);
+  push_to_priority_queue(&queue, generate_int(0, 500), 0, ARRIVED);
+  push_to_priority_queue(&queue, generate_int(0, 500), 0, SIM_ENDING);
+  push_to_priority_queue(&queue, generate_int(0, 500), 0, SIM_STARTING);
+
+  printf("Popped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
+  printf("Popped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
+  printf("Popped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
+  printf("Popped from priority queue, priority number %d was popped\n", pop_from_priority_queue(&queue).priority);
+
+  int counter = 0;
+  int iterations = 1000;
+  int ideal_prob = 20;
+  for (int i=0; i<iterations; i++) {
+    _Bool pass = probability_select(ideal_prob);
+    if (pass == true)
+      counter++;
+  }
+  printf("\nProbability true (hopefully close to %d%%): %d/%d\n", ideal_prob, counter, iterations);
+  
+  return;
 }

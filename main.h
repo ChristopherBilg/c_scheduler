@@ -3,3 +3,4 @@
 #endif
 
 int main();
+void runTests();
